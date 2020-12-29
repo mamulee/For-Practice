@@ -2,7 +2,7 @@ package jdbc_prg;
 
 import java.sql.*;
 
-public class JdbcEx1 {
+public class n01_JdbcEx1 {
 
 	public static void main(String[] args) {
 	
