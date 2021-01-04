@@ -1,10 +1,12 @@
 package controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.ResourceBundle;
 
+import exception.MyException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,6 +18,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import model.MemberDTO;
 
 public class KakaoMain_controller implements Initializable{
 	@FXML private Label Login_time;
@@ -36,20 +39,27 @@ public class KakaoMain_controller implements Initializable{
 	public void handleBtnLogin (ActionEvent event) {
 		String id = KakaoMain_login_email.getText();
 		String pw = KakaoMain_login_password.getText();
+		MemberDAO dao = new MemberDAO();
 		
-		if (id.equals("01064707235") && pw.equals("7235")) {
-			try {
+		try {
+			if (dao.login(id, pw)) {
 				Parent login = FXMLLoader.load(getClass().getClassLoader().getResource("view/Friends.fxml"));
 				Scene scene = new Scene(login);
 				Stage primaryStage = (Stage) kakaoMain_login_btn.getScene().getWindow();
 				primaryStage.setScene(scene);
-			} catch (Exception e) {
-				e.printStackTrace();
+			} else {
+				System.out.println("로그인 실패");
 			}
-		} else {
-			System.out.println("로그인 실패");
+			
+		} catch (MyException e) {
+			// TODO Auto-generated catch block
+			System.out.println(e.getMessage());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-	}
+	
+	} // handleBtnLogin
 	
 	public void handleBtnSignup(ActionEvent event) {
 		try {
@@ -60,5 +70,8 @@ public class KakaoMain_controller implements Initializable{
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
-}
+	} // handleBtnSignup
+
+
+
+} // class end

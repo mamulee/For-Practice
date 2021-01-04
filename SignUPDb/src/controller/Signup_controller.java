@@ -1,6 +1,7 @@
 package controller;
 
 import java.net.URL;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.ResourceBundle;
@@ -34,8 +35,9 @@ public class Signup_controller implements Initializable{
 			try {
 				handleBtnsignup(e);
 			} catch (MyException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+				System.out.println(e1.getMessage());
+			} catch (SQLIntegrityConstraintViolationException e1) {
+				System.out.println(e1.getMessage());
 			}
 		});
 		Date date = new Date();
@@ -43,52 +45,41 @@ public class Signup_controller implements Initializable{
 		signup_time.setText(sdf.format(date));
 
 	}
-	
-	public void handleBtnsignup (ActionEvent event) throws MyException {
+
+	public void handleBtnsignup (ActionEvent event) throws MyException, SQLIntegrityConstraintViolationException {
 
 		MemberDAO dao = new MemberDAO();
 		SignUpException sue = new SignUpException();
-		boolean tel = true;
-		boolean name = true;
-		boolean pw = true;
+		boolean tel;
+		boolean pw;
 		String pw2;
+		int result = 0;
 
 		try {
 			MemberDTO dto = new MemberDTO();
 
-			do { // 전화번호
-				try {
-					dto.setTel(signup_signup_phonenum.getText());
-					sue.telCheck(dto.getTel());
+			try {
+				dto.setTel(signup_signup_phonenum.getText());
+				sue.telCheck(dto.getTel());
+				tel = true;
 
-					tel = false;
+				if (tel) {
+					dto.setName(signup_signup_name.getText());
 
-				} catch(MyException e) {
-					System.out.println(e.getMessage());
-				}
-			}while(tel);
-
-			do { // 이름
-				dto.setName(signup_signup_name.getText());
-
-				name = false;
-
-			}while(name);
-
-			do { // 비밀번호
-				try {
 					dto.setPw(signup_signup_password.getText());
 					pw2 = signup_signup_passwordcheck.getText();
 
 					sue.pwCheck(dto.getPw(), pw2);
-					pw = false;
+					pw = true;
 
-				} catch (MyException e) {
-					System.out.println(e.getMessage());
+					if (pw) {
+						result = dao.insertData(dto);
+					}
 				}
-			}while(pw);
 
-			int result = dao.insertData(dto);
+			} catch(MyException e) {
+				System.out.println(e.getMessage());
+			}
 
 			if(result != 0) {
 				Parent login = FXMLLoader.load(getClass().getClassLoader().getResource("view/Login.fxml"));
@@ -99,13 +90,11 @@ public class Signup_controller implements Initializable{
 				System.out.println("회원가입 실패,,,");
 			}
 
-
 		} catch(Exception e) {
-			System.out.println(e.toString());
+			System.out.println(e.getMessage());
 		}
 
-
-
-
 	} // handleBtnsignup
-}
+
+
+} // class end
