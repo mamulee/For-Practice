@@ -18,7 +18,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import model.MemberDTO;
 
 public class KakaoMain_controller implements Initializable{
 	@FXML private Label Login_time;

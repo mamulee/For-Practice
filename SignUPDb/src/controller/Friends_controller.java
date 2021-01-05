@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.ResourceBundle;
 
+import model.UserDTO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,6 +20,7 @@ import javafx.stage.Stage;
 
 public class Friends_controller implements Initializable{
 	@FXML private Label Friend_time;
+	@FXML private Label logon_id;
 	
 	@FXML private TextField friends_search;
 	@FXML private Button friends_friends_btn;
@@ -35,6 +37,7 @@ public class Friends_controller implements Initializable{
 		Date date = new Date();
 		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
 		Friend_time.setText(sdf.format(date));
+		logon_id.setText(UsertDTO.nowUser.getName());
 	}
 	
 	//네비게이션 바
