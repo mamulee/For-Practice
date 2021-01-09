@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 import db.DBConn;
 import exception.MyException;
+import model.Message;
 import model.UserDTO;
 
 public class UserDAO {
@@ -107,7 +108,7 @@ public class UserDAO {
 			rs = pstmt.executeQuery();
 			if(rs.next()) {//방있으면
 				System.out.println("방있음");
-				result = rs.getInt("romm_num");
+				result = rs.getInt("room_num");
 				System.out.println("방번호: "+result);
 			}else {//방 없으면
 				System.out.println("방없어서 방생성");
@@ -136,6 +137,29 @@ public class UserDAO {
 		return result;
 	}//roomCheck
 
-
+	// 채팅 내용 저장
+	public void chatLog(Message msg) {
+		
+		int user_num = UserDTO.nowUser.getUser_num();
+		int room_num = roomCheck(UserDTO.nowUser, UserDTO.withFriend);
+		
+		conn = DBConn.getConnection();
+		String sql = "INSERT INTO chatMessage "
+				+ "VALUES(chatMessage_seq.NEXTVAL, ?, SYSDATE, ?, ?";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, msg.toString());
+			pstmt.setInt(2, user_num);
+			pstmt.setInt(3, room_num);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			DBConn.dbClose(rs, pstmt, conn);
+		}
+		
+	}
 
 } // UserDAO

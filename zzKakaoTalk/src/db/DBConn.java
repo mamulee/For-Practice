@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 public class DBConn {
 	private static final String JDBC_Driver = "oracle.jdbc.driver.OracleDriver";
-	private static final String DB_URL = "jdbc:oracle:thin:@211.243.150.194:1521:xe";
+	private static final String DB_URL = "jdbc:oracle:thin:@localhost:1521:xe";
 
 	private static final String user = "kakao";
 	private static final String pw = "kakao";
