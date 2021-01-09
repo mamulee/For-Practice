@@ -81,7 +81,7 @@ public class Signup_controller implements Initializable{
 				}
 
 			} catch(MyException e) {
-				System.out.println(e.getMessage());
+
 			}
 
 			if(result != 0) {

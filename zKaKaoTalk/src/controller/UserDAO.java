@@ -28,7 +28,7 @@ public class UserDAO {
 			result = pstmt.executeUpdate();
 			System.out.println(result + "명 회원가입 완료");
 		} catch (SQLIntegrityConstraintViolationException e1) {
-			throw new MyException("이미 있는 번호입니다.");
+			throw new MyException("로그인", "이미 있는 번호입니다.");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -74,10 +74,10 @@ public class UserDAO {
 
 
 				} else {
-					throw new MyException("비밀번호가 틀렸습니다.");
+					throw new MyException("로그인", "비밀번호가 틀렸습니다.");
 				}
 			} else {
-				throw new MyException("존재하지 않는 번호입니다.");
+				throw new MyException("로그인", "존재하지 않는 번호입니다.");
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

@@ -27,6 +27,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import model.UserDTO;
 
 public class Chat_w_01_controller implements Initializable{
 	@FXML private Label Chats_time;
@@ -92,7 +93,7 @@ public class Chat_w_01_controller implements Initializable{
 					throw new IOException();
 				}
 				
-				String data = new String (byteArr, 0, readByteCount, "UTF-8");
+				String data = new String (byteArr, 10, readByteCount, "UTF-8");
 				
 				Platform.runLater(() -> chat_textarea.appendText(data+"\n"));
 				
@@ -107,8 +108,9 @@ public class Chat_w_01_controller implements Initializable{
 	void send (String data) {
 		Thread thread = new Thread () {
 			public void run() {
-				try {
-					byte[] byteArr = data.getBytes("UTF-8");
+				try {	
+					String withName = UserDTO.nowUser.getName()+":\n"+data;
+					byte[] byteArr = withName.getBytes("UTF-8");
 					OutputStream os = socket.getOutputStream();
 					os.write(byteArr);
 					os.flush();
