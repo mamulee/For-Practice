@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="anchorpane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="324.0" prefWidth="499.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="util.FileChooserController">
+   <children>
+      <Button fx:id="Single" layoutX="50.0" layoutY="44.0" mnemonicParsing="false" onAction="#handleSingleBtn" prefHeight="27.0" prefWidth="154.0" text="Single FileChooser" />
+      <Button fx:id="Multiple" layoutX="278.0" layoutY="44.0" mnemonicParsing="false" onAction="#handleMultipleBtn" prefHeight="27.0" prefWidth="169.0" text="Multiple FileChooser" />
+      <ImageView fx:id="imageview" fitHeight="150.0" fitWidth="200.0" layoutX="27.0" layoutY="96.0" pickOnBounds="true" preserveRatio="true" />
+   </children>
+</AnchorPane>
