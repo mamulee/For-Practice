@@ -39,9 +39,28 @@ public class Chat_w_01_controller implements Initializable{
 	@FXML private TextArea chat_textarea;
 	@FXML private Button chat_send_button;
 	@FXML private Button chat_back_btn;
-	@FXML private Button chat_start_button;
 		
 	Socket socket;
+	public static int room_num;
+	
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		chat_send_button.setOnAction(e->handleBtnSend(e));
+		chat_back_btn.setOnAction(e->handleBtnBack(e));
+		
+		Date date = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+		Chats_time.setText(sdf.format(date));
+		
+		chat_slider_opacity.valueProperty().addListener(new ChangeListener<Number>() {
+			@Override
+			public void changed(ObservableValue<? extends Number> observable, 
+					Number oldValue, Number newValue) {
+				chat_w_01_mainpane.setOpacity(chat_slider_opacity.getValue() /100.0);
+			}
+		});
+		
+	}
 	
 	void startClient () {
 		Thread thread = new Thread() {
@@ -53,7 +72,6 @@ public class Chat_w_01_controller implements Initializable{
 					Platform.runLater(() -> {
 						chat("[Connection]" 
 								+ socket.getRemoteSocketAddress() + "]");
-						chat_start_button.setText("stop");
 						chat_send_button.setDisable(false);
 						
 					});
@@ -72,7 +90,6 @@ public class Chat_w_01_controller implements Initializable{
 		try {
 			Platform.runLater(() -> {
 				chat("[Connection Error]");
-				chat_start_button.setText("start");
 				chat_send_button.setDisable(true);
 			});
 			
@@ -127,40 +144,16 @@ public class Chat_w_01_controller implements Initializable{
 		chat_textarea.appendText(msg+"\n");
 	}
 	
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		chat_send_button.setOnAction(e->handleBtnSend(e));
-		chat_back_btn.setOnAction(e->handleBtnBack(e));
-		chat_start_button.setOnAction(e->handleBtnStart(e));
-		
-		Date date = new Date();
-		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
-		Chats_time.setText(sdf.format(date));
-		
-		chat_slider_opacity.valueProperty().addListener(new ChangeListener<Number>() {
-			@Override
-			public void changed(ObservableValue<? extends Number> observable, 
-					Number oldValue, Number newValue) {
-				chat_w_01_mainpane.setOpacity(chat_slider_opacity.getValue() /100.0);
-			}
-		});
-		
-	}
-	
-	public void handleBtnStart (ActionEvent event) {
-		if(chat_start_button.getText().equals("start")) {
-			startClient();
-		} else if(chat_start_button.getText().equals("stop")){
-			stopClient();
-		}
-	}
 	
 	public void handleBtnBack(ActionEvent event) {
 		try {
+			stopClient();
+			
 			Parent login = FXMLLoader.load(getClass().getClassLoader().getResource("view/Chats.fxml"));
 			Scene scene = new Scene(login);
 			Stage primaryStage = (Stage) chat_back_btn.getScene().getWindow();
 			primaryStage.setScene(scene);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

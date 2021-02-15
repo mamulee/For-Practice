@@ -17,6 +17,7 @@ INSERT INTO kakaouser VALUES (user_seq.NEXTVAL, '01022222222', '홍아현', '123
 SELECT * FROM KAKAOUSER ;
 
 
+
 --채팅룸 테이블 생성
 CREATE TABLE chatroom (
    room_num NUMBER(4) PRIMARY KEY,
@@ -42,3 +43,55 @@ CREATE TABLE chatMessage(
 );
 --메세지 내역 저장 테이블
 CREATE SEQUENCE chatMessage_seq START WITH 1 INCREMENT BY 1;
+
+SELECT * FROM chatMessage;
+
+-- 이게 쓰는 거야!!!!!!!!
+SELECT DISTINCT cm1.room_num, cr.user1_num, cr.user2_num, cm2.message, latest FROM (
+    SELECT room_num, max(message_time) latest 
+    FROM chatmessage GROUP BY room_num
+    ) cm1, chatroom cr, chatmessage cm2
+    WHERE cm1.room_num = cr.room_num AND latest = cm2.message_time
+    ORDER BY latest desc;
+
+-----------------------------------------------------------  
+SELECT DISTINCT cm.room_num, cr.user1_num, cr.user2_num 
+    FROM chatmessage cm JOIN chatroom cr
+    ON cm.room_num = cr.room_num;
+
+SELECT DISTINCT room_num FROM (
+    SELECT room_num, max(message_time) latest 
+    FROM chatmessage 
+    GROUP BY room_num
+    )
+    ORDER BY latest desc;
+
+SELECT * FROM chatroom;
+
+SELECT SYSDATE, CURRENT_TIMESTAMP FROM dual;
+
+SELECT to_char(CURRENT_TIMESTAMP, 'YYYYMMDDHH24MI') FROM dual;
+
+CREATE TABLE user_data(
+   user_num NUMBER PRIMARY KEY,
+   user_status varchar2(60) DEFAULT '',
+   user_image blob DEFAULT empty_blob(),
+   CONSTRAINT user_data_FK FOREIGN KEY (user_num) REFERENCES kakaouser(user_num)
+);
+
+COMMIT;
+
+SELECT * FROM user_data;
+
+DELETE FROM chatMessage;
+DELETE FROM chatRoom;
+DELETE FROM user_data;
+DELETE FROM kakaouser;
+COMMIT;
+
+ALTER TABLE chatroom add (lastLogOn_user1 DATE);
+ALTER TABLE chatroom add (lastLogOn_user2 DATE);
+
+UPDATE chatroom SET lastlogon_user1 = sysdate ;
+UPDATE chatroom SET lastlogon_user2 = sysdate ;
+COMMIT;

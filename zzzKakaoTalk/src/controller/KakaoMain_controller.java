@@ -6,7 +6,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.ResourceBundle;
 
-import exception.LogInException;
 import exception.MyException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -39,12 +38,9 @@ public class KakaoMain_controller implements Initializable{
 	public void handleBtnLogin (ActionEvent event) {
 		String id = KakaoMain_login_email.getText();
 		String pw = KakaoMain_login_password.getText();
-		LogInException lie = new LogInException();
 		UserDAO dao = new UserDAO();
 		
 		try {
-			lie.userCheck(id, pw);
-		
 			if (dao.login(id, pw)) {
 				Parent login = FXMLLoader.load(getClass().getClassLoader().getResource("view/Friends.fxml"));
 				Scene scene = new Scene(login);

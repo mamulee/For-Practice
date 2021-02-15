@@ -11,12 +11,12 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Friends_controller">
+<BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Chats_controller">
    <center>
       <Pane prefHeight="600.0" prefWidth="300.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
          <children>
-            <Label fx:id="Friend_time" layoutX="132.0" layoutY="7.0" text="21:15" />
-            <ImageView fitHeight="12.0" fitWidth="16.0" layoutX="34.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
+            <Label fx:id="Chats_time" layoutX="132.0" layoutY="7.0" text="21:15" />
+            <ImageView fitHeight="12.0" fitWidth="16.0" layoutX="34.0" layoutY="8.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
             
                <image>
                   <Image url="@../imgs/wifi.png" />
@@ -27,32 +27,18 @@
                   <Font name="Lucida Bright Regular" size="10.0" />
                </font>
             </Label>
-            <Label layoutX="14.0" layoutY="33.0" prefHeight="38.0" prefWidth="96.0" text="Friends">
+            <Label layoutX="14.0" layoutY="33.0" prefHeight="38.0" prefWidth="96.0" text="Chats">
                <font>
                   <Font name="Lucida Bright Demibold" size="22.0" />
                </font>
             </Label>
-            <Pane layoutX="-1.0" layoutY="71.0" prefHeight="34.0" prefWidth="300.0" style="-fx-background-color: rgba(0,0,0,0.05);">
+            <Pane fx:id="chats_first_linktochat" layoutX="-1.0" layoutY="85.0" prefHeight="71.0" prefWidth="300.0">
                <children>
-                  <TextField fx:id="friends_search" layoutX="41.0" layoutY="6.0" opacity="0.77" prefHeight="23.0" prefWidth="227.0" promptText="Search for your friend's name :-)">
-                     <font>
-                        <Font name="Lucida Bright Italic" size="10.0" />
-                     </font>
-                  </TextField>
-                  <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="15.0" layoutY="8.0" opacity="0.4" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../imgs/friends.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </Pane>
-            <Pane layoutY="105.0" prefHeight="71.0" prefWidth="300.0">
-               <children>
-                  <Label fx:id="logon_id" layoutX="85.0" layoutY="13.0" style="-fx-font-weight: bold; -fx-font-style: italic; -fx-font-family: &quot;Lucida Bright&quot;; -fx-font-size: 18;" text="MinJae">
+                  <Label layoutX="85.0" layoutY="13.0" style="-fx-font-weight: bold; -fx-font-style: italic; -fx-font-family: &quot;Lucida Bright&quot;; -fx-font-size: 18;" text="MinJae">
                      <font>
                         <Font name="Lucida Bright Italic" size="18.0" />
                      </font></Label>
-                  <Label layoutX="85.0" layoutY="40.0" text="status message">
+                  <Label layoutX="85.0" layoutY="40.0" text="recent message">
                      <font>
                         <Font name="Lucida Bright Italic" size="13.0" />
                      </font></Label>
@@ -64,29 +50,13 @@
                         <Cursor fx:constant="DEFAULT" />
                      </cursor>
                   </ImageView>
-                  <Label layoutX="189.0" layoutY="28.0" style="-fx-border-radius: 10px; -fx-border-color: #01B925;" text="music_English" textAlignment="CENTER" textFill="#000000b2">
-                     <padding>
-                        <Insets left="10.0" right="10.0" />
-                     </padding>
-                     <font>
-                        <Font name="Lucida Bright Italic" size="11.0" />
-                     </font>
-                  </Label>
                   <Label layoutX="10.0" prefHeight="68.0" prefWidth="73.0" style="-fx-border-color: white; -fx-border-radius: 10px; -fx-border-width: 4px;" />
+                  <Label fx:id="chats_chatstime_1" alignment="CENTER_RIGHT" layoutX="198.0" layoutY="6.0" prefHeight="15.0" prefWidth="90.0" text="time" />
                </children>
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Pane>
-            <Separator layoutX="15.0" layoutY="183.0" prefHeight="0.0" prefWidth="269.0" />
-            <Label layoutX="13.0" layoutY="194.0" text="Friends" />
-            
-            <ScrollPane fx:id="list" layoutX="15.0" layoutY="209.0" prefHeight="318.0" prefWidth="271.0">
-               <content>
-                  <VBox fx:id="vboxlist" />
-               </content></ScrollPane>
-            
-            
             <Separator layoutY="536.0" prefHeight="3.0" prefWidth="300.0" />
             <Pane layoutY="538.0" prefHeight="62.0" prefWidth="300.0" style="-fx-background-color: #f9f9fa;">
                <children>
@@ -127,6 +97,88 @@
                         <Cursor fx:constant="HAND" />
                      </cursor></Button>
                </children>
+            </Pane>
+            <Separator layoutX="4.0" layoutY="73.0" prefHeight="1.0" prefWidth="293.0" />
+            <Pane layoutX="-1.0" layoutY="156.0" prefHeight="71.0" prefWidth="300.0">
+               <children>
+                  <Label layoutX="85.0" layoutY="13.0" style="-fx-font-weight: bold; -fx-font-style: italic; -fx-font-family: &quot;Lucida Bright&quot;; -fx-font-size: 18;" text="MinJae">
+                     <font>
+                        <Font name="Lucida Bright Italic" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="85.0" layoutY="40.0" text="recent message">
+                     <font>
+                        <Font name="Lucida Bright Italic" size="13.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="59.0" fitWidth="78.0" layoutX="14.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
+                     <cursor>
+                        <Cursor fx:constant="DEFAULT" />
+                     </cursor>
+                     <image>
+                        <Image url="@../imgs/profile.jpg" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="10.0" prefHeight="68.0" prefWidth="73.0" style="-fx-border-color: white; -fx-border-radius: 10px; -fx-border-width: 4px;" />
+                  <Label fx:id="chats_chatstime_11" layoutX="262.0" layoutY="6.0" text="time" />
+               </children>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Pane>
+            <Pane layoutX="-1.0" layoutY="229.0" prefHeight="71.0" prefWidth="300.0">
+               <children>
+                  <Label layoutX="85.0" layoutY="13.0" style="-fx-font-weight: bold; -fx-font-style: italic; -fx-font-family: &quot;Lucida Bright&quot;; -fx-font-size: 18;" text="MinJae">
+                     <font>
+                        <Font name="Lucida Bright Italic" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="85.0" layoutY="40.0" text="recent message">
+                     <font>
+                        <Font name="Lucida Bright Italic" size="13.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="59.0" fitWidth="78.0" layoutX="14.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
+                     <cursor>
+                        <Cursor fx:constant="DEFAULT" />
+                     </cursor>
+                     <image>
+                        <Image url="@../imgs/profile.jpg" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="10.0" prefHeight="68.0" prefWidth="73.0" style="-fx-border-color: white; -fx-border-radius: 10px; -fx-border-width: 4px;" />
+                  <Label fx:id="chats_chatstime_111" layoutX="262.0" layoutY="6.0" text="time" />
+               </children>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Pane>
+            <Pane layoutX="-1.0" layoutY="303.0" prefHeight="71.0" prefWidth="300.0">
+               <children>
+                  <Label layoutX="85.0" layoutY="13.0" style="-fx-font-weight: bold; -fx-font-style: italic; -fx-font-family: &quot;Lucida Bright&quot;; -fx-font-size: 18;" text="MinJae">
+                     <font>
+                        <Font name="Lucida Bright Italic" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="85.0" layoutY="40.0" text="recent message">
+                     <font>
+                        <Font name="Lucida Bright Italic" size="13.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="59.0" fitWidth="78.0" layoutX="14.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
+                     <cursor>
+                        <Cursor fx:constant="DEFAULT" />
+                     </cursor>
+                     <image>
+                        <Image url="@../imgs/profile.jpg" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="10.0" prefHeight="68.0" prefWidth="73.0" style="-fx-border-color: white; -fx-border-radius: 10px; -fx-border-width: 4px;" />
+                  <Label fx:id="chats_chatstime_1111" layoutX="262.0" layoutY="6.0" text="time" />
+               </children>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </Pane>
             <ImageView fitHeight="16.0" fitWidth="20.0" layoutX="266.0" layoutY="5.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
                <image>
