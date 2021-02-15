@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>다이얼로그 실습</title>
+</head>
+<body>
+</body>
+<script>
+	var name = prompt("이름 : ");
+	var kor = Number(prompt("국어 점수 : "));
+	var eng = Number(prompt("영어 점수 : "));
+	var mat = Number(prompt("수학 점수 : "));
+	var sum = kor + eng + mat;
+	var avg = (sum / 3).toFixed(2);
+	var msg = "이름 : " + name
+	+ "\n국어 점수 : " + kor
+	+ "\n영어 점수 : " + eng
+	+ "\n수학 점수 : " + mat
+	+ "\n총 점 : " + sum+"점"
+	+ "\n평 균 : " + avg+"점"
+	+"\n 입력하신 정보가 맞습니까?";
+	
+	var result = "이름 : " + name
+	+ "<br>국어 점수 : " + kor
+	+ "<br>영어 점수 : " + eng
+	+ "<br>수학 점수 : " + mat
+	+ "<br>총 점 : " + sum+"점"
+	+ "<br>평 균 : " + avg+"점"
+	+ "<br>등록 성공 !";
+	if(confirm(msg)) {
+		document.write(result);
+	} else {
+		alert("다시 작성해주시기 바랍니다.");
+		history.go(0);
+	}
+</script>
+</html>

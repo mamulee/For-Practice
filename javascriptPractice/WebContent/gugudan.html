@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>구구단</title>
+</head>
+<body>
+	<h2>구구단</h2>
+	<h4>1~9 사이의 구구단을 출력</h4>
+</body>
+<script>
+	function printGugudan(dan) {
+		var check = dan - Number(dan) != 0.0;
+		
+		if(!check) {dan = parseInt(dan)};
+		
+		if(isNaN(dan) || dan < 1 || dan > 9 || check) {
+			alert("잘못 입력하셨습니다. 다시 입력해 주세요.");
+			location.reload();
+			return;
+		}
+		
+		for(let i=1; i<10; i++) {
+			document.write(dan+" * "+i+" = "+dan*i+"<br>");
+		}
+	}
+
+	var dan = prompt("몇 단을 보고 싶으십니까? (1~9 입력)");
+	printGugudan(dan);
+</script>
+</html>

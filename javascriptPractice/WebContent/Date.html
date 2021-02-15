@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>방문 시간에 따라 변하는 배경</title>
+</head>
+<body>
+	<h3>방문 시간에 따라 변하는 배경</h3>
+	<hr>
+</body>
+<script>
+	var now = new Date();
+	
+	if(now.getSeconds() % 2 == 0) {
+		document.body.style.background = "violet";
+	} else {
+		document.body.style.background = "lightskyblue";
+	}
+	
+	with(document) {
+		write("현재 시간 : ");
+		write(now.getHours()+"시 ");
+		write(now.getMinutes()+"분 ");
+		write(now.getSeconds()+"초<br>");
+		
+		
+	}
+</script>
+</html>

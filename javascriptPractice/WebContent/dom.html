@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>CSS 스타일 동적 변경</title>
+</head>
+<body id="forDIV">
+	<h2>CSS 스타일 동적 변경</h2>
+	<p>
+		이것은 <span id="mySpan">문장입니다.</span>
+	</p>
+	<button onClick="styleChange()">스타일 변경</button>
+	
+	<p id="imageP" onClick="intoImage()">
+		여기를 클릭하면 이미지가 등장합니다.
+	</p>
+	
+	<a href="javascript: insertDIV()">DIV 생성</a>
+</body>
+<script>
+	function styleChange() {
+		var span = document.getElementById("mySpan");
+		with(span.style) {
+			color="green";
+			fontSize="20px";
+			border="3px dotted";
+		}
+	}
+	
+	function intoImage() {
+		var p = document.getElementById("imageP");
+		p.innerHTML="<img src='icon2.png'>"
+		
+/* 		var img = document.createElement("img");
+		img.setAttribute("src", "icon2.png");
+		p.appendChild(img); */
+		
+	}
+	
+	function insertDIV() {
+		var body = document.getElementById("forDIV");
+		var div = document.createElement("div");
+		div.innerHTML = "새로 생성된 div 입니다.";
+		div.style.backgroundColor="yellow";
+		div.addEventListener("click", function(){
+			var body = this.parentElement;
+			body.removeChild(this);
+		});
+		
+		body.appendChild(div);
+	}
+</script>
+</html>

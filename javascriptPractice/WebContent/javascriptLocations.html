@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>자바스크립트 위치들</title>
+</head>
+<body>
+	<h3>마우스를 올려 보세요</h3>
+	<hr>
+	<img src="icon2.png" alt="이미지" onmouseover="this.src='icon1.png'" onmouseout="this.src='icon2.png'">
+	<img src="icon1.png" onmouseover="over(this)" onmouseout="out(this)">
+</body>
+<script>
+	function over(obj) {
+		obj.src = "icon2.png";
+	}
+	
+	function out(obj) {
+		obj.src = "icon1.png";
+	}
+</script>
+</html>

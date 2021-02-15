@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>DOM 실습</title>
+</head>
+<body>
+	<table border="1" style="margin : 0 auto; width:30%; text-align:center;" >
+		<caption><strong>요금표</strong></caption>
+		<thead style="background : yellow;">
+			<tr>
+				<th>구분</th>
+				<th>요금</th>
+			</tr>
+		</thead>
+		<tr class="person">
+			<td>아동</td>
+			<td>무료</td>
+		</tr>
+		
+		<tr class="person">
+			<td>청소년</td>
+			<td>2000</td>
+		</tr>
+		
+		<tr class="person">
+			<td>성인</td>
+			<td>5000</td>
+		</tr>
+	</table>
+	
+	<fieldset style="text-align:center; width:30%; margin:0 auto;">
+		<legend>구분</legend>
+		<input id="answer" type="text">
+		<input type="button" value="확인" onClick="confirm()">
+	</fieldset>
+</body>
+<script>
+	var tempTd;
+	var tempText;
+	
+	function confirm() {
+		var answer = document.getElementById("answer").value;
+		var trs = document.getElementsByClassName("person");
+		var check = false;
+		
+		if(tempTd != undefined) {
+			tempTd.parentElement.style.background = "white";
+			tempTd.innerHTML = tempText;
+		}
+			
+		for(let i=0; i<trs.length; i++) {
+			var td = trs[i].children[0];
+			if(answer == td.innerHTML) {
+				tempTd = td;
+				tempText = td.innerHTML;
+				
+				trs[i].style.background = "red";
+				td.innerHTML = "★" + td.innerHTML;
+				check = true;
+				break;
+			}
+		}
+		
+		if(!check) {
+			alert("다시 입력해 주세요.");
+			location.reload();
+		}
+	}
+</script>
+</html>
