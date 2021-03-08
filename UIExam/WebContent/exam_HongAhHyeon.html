@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>UI 구현 시험</title>
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Brush+Script&display=swap" rel="stylesheet">
+<style>
+body {
+	text-align: center;
+	font-family: 'Nanum Brush Script', cursive;
+}
+table {
+	border: 1px solid black;
+	margin-right: auto;
+	margin-left: auto;
+	width: 50%;
+	border-collapse: collapse;
+}
+
+th, td {
+	border: 1px solid black;
+	text-align: center;
+}
+
+tr{
+	background : blue;
+}
+
+input {
+	font-family: 'Nanum Brush Script', cursive;
+}
+</style>
+</head>
+<body>
+	<table>
+		<caption>요금표</caption>
+		<thead>
+			<tr style="background : yellow;">
+				<th>구분</th>
+				<th>요금</th>
+			</tr>
+		</thead>
+		<tr class="person">
+			<td>아동</td>
+			<td>무료</td>
+		</tr>
+		
+		<tr class="person">
+			<td>청소년</td>
+			<td>2000</td>
+		</tr>
+		
+		<tr class="person">
+			<td>성인</td>
+			<td>5000</td>
+		</tr>
+	</table>
+	<input type="text" value="구분을 입력하세요">
+	<input type="button" value="입력완료 버튼">
+</body>
+</html>
