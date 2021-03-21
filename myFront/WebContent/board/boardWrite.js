@@ -1,0 +1,7 @@
+/**
+ * 
+ */
+
+function formSubmit(){
+	boardForm.submit();
+}
