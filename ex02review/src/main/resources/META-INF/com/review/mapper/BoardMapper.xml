@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.review.mapper.BoardMapper">
+	<select id="selectList" resultType="com.review.domain.BoardVO">
+		SELECT * FROM R_BOARD
+	</select>
+	
+	<select id="selectListWithPaging" resultType="com.review.domain.BoardVO">
+		SELECT BNO, TITLE, CONTENT, WRITER, REGDATE, UPDATEDATE
+		FROM
+			(SELECT /*+ INDEX_DESC(R_BOARD PK_R_BOARD) */ ROWNUM RN, BNO, TITLE, CONTENT, WRITER, REGDATE, UPDATEDATE
+			FROM R_BOARD
+			WHERE
+		<![CDATA[
+				ROWNUM <= #{pageNum} * #{amount})
+			WHERE RN > ((#{pageNum} -1) * #{amount})
+		]]>
+	</select>
+	
+	<select id="selectCount" resultType="_int">
+		SELECT COUNT(BNO) FROM R_BOARD
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO R_BOARD (BNO, TITLE, CONTENT, WRITER)
+		VALUES(SEQ_RBOARD.NEXTVAL, #{title}, #{content}, #{writer})
+	</insert>
+	
+	<insert id="insertSelectPK">
+		<selectKey keyProperty="bno" order="BEFORE" resultType="long">
+			SELECT SEQ_RBOARD.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO R_BOARD (BNO, TITLE, CONTENT, WRITER)
+		VALUES(#{bno}, #{title}, #{content}, #{writer})
+	</insert>
+	
+	<select id="selectBoard" resultType="com.review.domain.BoardVO">
+		SELECT BNO, TITLE, CONTENT, WRITER FROM R_BOARD
+		WHERE BNO = #{bno}
+	</select>
+	
+	<update id="updateBoard">
+		UPDATE R_BOARD
+		SET TITLE = #{title}, CONTENT = #{content}, UPDATEDATE = SYSDATE
+		WHERE BNO = #{bno}
+	</update>
+	
+	<delete id="deleteBoard">
+		DELETE R_BOARD WHERE BNO = #{bno}
+	</delete>
+</mapper>
