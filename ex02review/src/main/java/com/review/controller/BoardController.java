@@ -31,13 +31,13 @@ public class BoardController {
 	
 	@GetMapping("/list")
 	public void list(Criteria cri, Model model) {
-		log.info("list w/ paging...................");
+		log.info("list w/ paging..................."+cri);
 		model.addAttribute("list", service.getListPaging(cri));
 		model.addAttribute("pageMaker", new PageDTO(cri, service.getTotal(cri)));
 	}
 	
 	@GetMapping("/register")
-	public void register() {}
+	public void register(@ModelAttribute("cri") Criteria cri) {}
 	
 	@PostMapping("/register")
 	public String register(BoardVO board, RedirectAttributes rttr) {
@@ -48,26 +48,34 @@ public class BoardController {
 	}
 	
 	@GetMapping({"/read", "modify"})
-	public void read(Long bno, Model model) {
+	public void read(Long bno, Model model, @ModelAttribute("cri") Criteria cri) {
 		log.info("read..................."+bno);
 		model.addAttribute("board", service.read(bno));
 	}
 	
 	@PostMapping("/board/modify")
-	public String modify(@ModelAttribute("board") BoardVO board, RedirectAttributes rttr) {
+	public String modify(@ModelAttribute("board") BoardVO board, Criteria cri, RedirectAttributes rttr) {
 		log.info("modify..................."+board);
 		if(service.modify(board)) {
 			rttr.addFlashAttribute("result","success");
 		}
+		rttr.addAttribute("pageNum", cri.getPageNum());
+		rttr.addAttribute("amount", cri.getAmount());
+		rttr.addAttribute("type", cri.getType());
+		rttr.addAttribute("keyword", cri.getKeyword());
 		return "redirect:/board/read?bno="+board.getBno();
 	}
 	
 	@GetMapping("/board/delete")
-	public String delete(Long bno, RedirectAttributes rttr) {
+	public String delete(Long bno, Criteria cri, RedirectAttributes rttr) {
 		log.info("delete..................."+bno);
 		if(service.delete(bno)) {
 			rttr.addFlashAttribute("result", "success");
 		}
+		rttr.addAttribute("pageNum", cri.getPageNum());
+		rttr.addAttribute("amount", cri.getAmount());
+		rttr.addAttribute("type", cri.getType());
+		rttr.addAttribute("keyword", cri.getKeyword());
 		return "redirect:/board/list";
 	}
 }

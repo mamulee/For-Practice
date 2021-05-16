@@ -24,7 +24,7 @@
 				</header>
 				<!-- Table -->
 				<h3>
-					<a href="/board/list" class="button small">목록 보기</a>
+					<a href="/board/list${cri.getListLink()}" class="button small">목록 보기</a>
 				</h3>
 				<div class="content">
 					<div class="form">

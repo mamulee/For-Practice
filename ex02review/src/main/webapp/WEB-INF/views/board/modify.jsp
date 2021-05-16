@@ -25,11 +25,15 @@
 				</header>
 				<!-- Table -->
 				<h3>
-					<a href="/board/list" class="button small">목록 보기</a>
+					<a href="/board/list${cri.getListLink()}" class="button small">목록 보기</a>
 				</h3>
 				<div class="content">
 					<div class="form">
 						<form action="/board/modify" method="post">
+							<input type="hidden" name="pageNum" value="${cri.pageNum}">
+							<input type="hidden" name="amount" value="${cri.amount}">
+							<input type="hidden" name="keyword" value="${cri.keyword}">
+							<input type="hidden" name="type" value="${cri.type}">
 							<div class="fields">
 								<div class="field">
 									<h4>번호</h4>

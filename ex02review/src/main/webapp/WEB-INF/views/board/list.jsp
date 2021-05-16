@@ -11,6 +11,11 @@
 <meta name="description" content="" />
 <meta name="keywords" content="" />
 <link rel="stylesheet" href="/resources/assets/css/main.css" />
+<style>
+	select {width:25%; display:inline;}
+	input[name='keyword']{width:54%; display:inline;}
+	.search{width:20%;}
+</style>
 </head>
 <body class="is-preload">
 	<!-- Main -->
@@ -25,7 +30,7 @@
 				</header>
 				<!-- Table -->
 				<h3>
-					<a href="/board/register" class="button small">글 등록</a>
+					<a href="/board/register${pageMaker.cri.getListLink()}" class="button small">글 등록</a>
 				</h3>
 				<div class="table-wrapper">
 					<table>
@@ -42,7 +47,7 @@
 							<c:forEach var="board" items="${list}">
 								<tr>
 									<td class="bno">${board.bno}</td>
-									<td class="title"><a href="/board/read?bno=${board.bno}">${board.title}</a></td>
+									<td class="title"><a href="/board/read${pageMaker.cri.getListLink()}&bno=${board.bno}">${board.title}</a></td>
 									<td class="writer">${board.writer}</td>
 									<td class="regDate">${board.regDate}</td>
 									<td class="updateDate">${board.updateDate}</td>
@@ -76,6 +81,28 @@
 				<form action="/board/list" id="pageForm">
 					<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}">
 					<input type="hidden" name="amount" value="${pageMaker.cri.amount}">
+					<input type="hidden" name="keyword" value="${pageMaker.cri.keyword}">
+					<input type="hidden" name="type" value="${pageMaker.cri.type}">
+				</form>
+				
+				<form action="/board/list" id="searchForm">
+					<div class="fields">
+						<div class="field">
+							<div style="text-align:center;">
+								<select name="type">
+									<option value="" ${pageMaker.cri.type == null ? 'selected' : '' }>검색 기준</option>
+									<option value="T" ${pageMaker.cri.type == 'T' ? 'selected' : '' }>제목</option>
+									<option value="C" ${pageMaker.cri.type == 'C' ? 'selected' : '' }>내용</option>
+									<option value="W" ${pageMaker.cri.type == 'W' ? 'selected' : '' }>작성자</option>
+									<option value="TC" ${pageMaker.cri.type == 'TC' ? 'selected' : '' }>제목 / 내용</option>
+									<option value="TW" ${pageMaker.cri.type == 'TW' ? 'selected' : '' }>제목 / 작성자</option>
+									<option value="TCW" ${pageMaker.cri.type == 'TCW' ? 'selected' : '' }>전체</option>
+								</select>
+								<input type="text" name="keyword" value="${pageMaker.cri.keyword}">
+								<a href="javascript:void(0)" class="search button primary icon solid fa-search">검색</a>
+							</div>
+						</div>
+					</div>
 				</form>
 			</div>
 		</div>
@@ -96,6 +123,22 @@
 		var pageNum = $(this).attr("href");
 		pageForm.find("input[name='pageNum']").val(pageNum);
 		pageForm.submit();
+	})
+	
+	$("a.search").on("click", function(e){
+		e.preventDefault();
+		var searchForm = $("#searchForm");
+		
+		if(!searchForm.find("option:selected").val()){
+			alert("검색 종류를 선택하세요.");
+			return false;
+		}
+		if(!searchForm.find("input[name='keyword']").val()){
+			alert("키워드를 입력하세요.");
+			return false;
+		}
+		
+		searchForm.submit();
 	})
 </script>
 </html>
